@@ -54,8 +54,6 @@ export const loginValidation = (
 
   const query = `SELECT * FROM users where email='${email}' and password='${password}'`;
   db.query(query, (err, result: any[]) => {
-    console.log(result);
-
     if (!result.length) {
       return errorAuth(103, res, "Username atau pasword salah");
     }
