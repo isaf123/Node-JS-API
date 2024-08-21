@@ -13,7 +13,7 @@ export const validationImg = async (
   try {
     const pic = files[0].filename;
 
-    const checkTypeFile = z.string().regex(/\.(jpg|jpeg|png)$/i);
+    const checkTypeFile = z.string().regex(/\.(jpg|png)$/i);
     const checkValidation = checkTypeFile.safeParse(pic).error;
 
     if (checkValidation) {

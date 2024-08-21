@@ -11,6 +11,7 @@ import {
   regisValidation,
   loginValidation,
 } from "./validator/membership.validator";
+import { getBalance } from "./controller/transaction";
 import { getBanner, getService } from "./controller/information";
 import { verifyToken } from "./middleware/verifyToken";
 import { uploader } from "./middleware/uploader";
@@ -32,5 +33,8 @@ router.put(
 //information
 router.get("/banner", verifyToken, getBanner);
 router.get("/services", verifyToken, getService);
+
+//transaction
+router.get("/balance", verifyToken, getBalance);
 
 export default router;
