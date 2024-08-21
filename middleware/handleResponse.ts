@@ -7,8 +7,6 @@ export const handleResponse = (
   message: string
 ) => {
   db.query(query, (err, result: any[]) => {
-    console.log(result);
-
     if (err) {
       return res.status(500).json(err);
     }
@@ -26,8 +24,6 @@ export const responseInformation = (
   message: string
 ) => {
   db.query(query, (err, result: any[]) => {
-    console.log(result);
-
     if (err) {
       return res.status(500).json(err);
     }
