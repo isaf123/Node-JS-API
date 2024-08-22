@@ -1,5 +1,6 @@
-## DATABASE DESIGN
+# DATABASE SETUP
 
+```sql
 CREATE TABLE `services` (
   `id` int NOT NULL AUTO_INCREMENT,
   `service_code` varchar(20) NOT NULL,
@@ -23,8 +24,8 @@ INSERT INTO `services` VALUES
 (11,'QURBAN','Qurban','https://nutech-integrasi.app/dummy.jpg',200000),
 (12,'ZAKAT','Zakat','https://nutech-integrasi.app/dummy.jpg',300000);
 
+SELECT * FROM `transactions`;
 
-select *from transactions;
 CREATE TABLE `transactions` (
   `id` int NOT NULL AUTO_INCREMENT,
   `invoice_number` varchar(45) NOT NULL,
@@ -35,7 +36,6 @@ CREATE TABLE `transactions` (
   `user_id` int NOT NULL,
   PRIMARY KEY (`id`)
 );
-
 
 CREATE TABLE IF NOT EXISTS `banner` (
   `id` int NOT NULL AUTO_INCREMENT,
@@ -63,3 +63,4 @@ CREATE TABLE IF NOT EXISTS `users` (
   `balance` int DEFAULT '0',
   PRIMARY KEY (`id`)
 );
+
