@@ -37,7 +37,7 @@ CREATE TABLE `transactions` (
   PRIMARY KEY (`id`)
 );
 
-CREATE TABLE IF NOT EXISTS `banner` (
+CREATE TABLE `banner` (
   `id` int NOT NULL AUTO_INCREMENT,
   `banner_name` varchar(45) NOT NULL,
   `banner_image` varchar(45) NOT NULL,
@@ -53,7 +53,7 @@ INSERT INTO `banner` (`banner_name`, `banner_image`, `description`) VALUES
 ('Banner 5', 'https://nutech-integrasi.app/dummy.jpg', 'Lerem Ipsum Dolor sit amet'),
 ('Banner 6', 'https://nutech-integrasi.app/dummy.jpg', 'Lerem Ipsum Dolor sit amet');
 
-CREATE TABLE IF NOT EXISTS `users` (
+CREATE TABLE `users` (
   `id` int NOT NULL AUTO_INCREMENT,
   `email` varchar(45) NOT NULL,
   `first_name` varchar(45) NOT NULL,
