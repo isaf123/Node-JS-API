@@ -35,6 +35,10 @@ export const transactionValidation = (
   db.query(query, (err, result: any[]) => {
     const balance = result[0].balance;
     db.query(queryServiceCost, (err, result: any) => {
+      if (!result.length) {
+        return errorRequest(102, res, "Service atau layanan tidak ditemukan");
+      }
+
       const serviceCost = result[0].service_tariff;
 
       if (serviceCost > balance) {

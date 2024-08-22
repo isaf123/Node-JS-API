@@ -15,7 +15,12 @@ import {
   topUpValidation,
   transactionValidation,
 } from "./validator/transaction.validator";
-import { getBalance, topup, transaction } from "./controller/transaction";
+import {
+  getBalance,
+  topup,
+  transaction,
+  transactionHistory,
+} from "./controller/transaction";
 import { getBanner, getService } from "./controller/information";
 import { verifyToken } from "./middleware/verifyToken";
 import { uploader } from "./middleware/uploader";
@@ -42,5 +47,5 @@ router.get("/services", verifyToken, getService);
 router.get("/balance", verifyToken, getBalance);
 router.post("/topup", verifyToken, topUpValidation, topup);
 router.post("/transaction", verifyToken, transactionValidation, transaction);
-
+router.get("/transaction/history", verifyToken, transactionHistory);
 export default router;

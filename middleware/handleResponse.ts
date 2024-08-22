@@ -1,3 +1,4 @@
+import { record } from "zod";
 import db from "../config/db";
 import { Request, Response } from "express";
 
@@ -44,6 +45,25 @@ export const handleResponsePayment = (res: Response, userId: number) => {
       status: 0,
       message,
       data: result[0],
+    });
+  });
+};
+
+export const responseTransactionHistory = (
+  res: Response,
+  query: string,
+  parameter: { limit: number; offset: number }
+) => {
+  const { limit, offset } = parameter;
+  db.query(query, (err, result: any) => {
+    return res.status(200).json({
+      status: 0,
+      message: "Get History Berhasil",
+      data: {
+        offset: offset || 0,
+        limit: limit || 0,
+        records: result,
+      },
     });
   });
 };

@@ -3,10 +3,12 @@ import {
   handleResponse,
   handleResponsePayment,
   responseInformation,
+  responseTransactionHistory,
 } from "../middleware/handleResponse";
 import db from "../config/db";
 
 import { errorRequest } from "../middleware/handleError";
+import { number } from "zod";
 
 export const getBalance = (req: Request, res: Response) => {
   const email = res.locals.decript.email;
@@ -66,9 +68,6 @@ export const transaction = (req: Request, res: Response) => {
 
     db.query(query, (err, result: any[]) => {
       const data = result[0];
-      if (!result.length) {
-        return errorRequest(102, res, "Service atau layanan tidak ditemukan");
-      }
 
       const { service_name, service_tariff } = data;
 
@@ -99,5 +98,32 @@ export const transaction = (req: Request, res: Response) => {
       });
       return handleResponsePayment(res, userId);
     });
+  });
+};
+
+export const transactionHistory = (req: Request, res: Response) => {
+  const email = res.locals.decript.email;
+  const limit = Number(req.query.limit);
+  const offset = Number(req.query.offset);
+  const keyObject = Object.keys(req.query);
+  const parameter = [] as any[];
+  keyObject.forEach((val, i: number) => {
+    const values = Object.values(req.query);
+    const params = `${val} ${Number(values[i])}`;
+    parameter.push(params);
+  });
+
+  const queryUserId = `SELECT id FROM users WHERE email='${email}'`;
+
+  db.query(queryUserId, (err, result: any[]) => {
+    const userId = result[0].id;
+    const query = `SELECT invoice_number, 
+    transaction_type, 
+    description, 
+    total_amount, 
+    created_on 
+    FROM transactions WHERE user_id =${userId} ${parameter.join(" ")}`;
+
+    return responseTransactionHistory(res, query, { limit, offset });
   });
 };
