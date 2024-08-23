@@ -20,6 +20,7 @@ import {
   topup,
   transaction,
   transactionHistory,
+  checkTrans,
 } from "./controller/transaction";
 import { getBanner, getService } from "./controller/information";
 import { verifyToken } from "./middleware/verifyToken";
@@ -42,6 +43,8 @@ router.put(
 //information
 router.get("/banner", verifyToken, getBanner);
 router.get("/services", verifyToken, getService);
+
+router.get("/check", checkTrans);
 
 //transaction
 router.get("/balance", verifyToken, getBalance);

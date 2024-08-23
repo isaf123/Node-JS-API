@@ -6,9 +6,14 @@ import {
   responseTransactionHistory,
 } from "../middleware/handleResponse";
 import db from "../config/db";
+import { promisify } from "util";
+import { RowDataPacket } from "mysql2";
 
-import { errorRequest } from "../middleware/handleError";
-import { number } from "zod";
+const queryAsync = promisify<string, RowDataPacket[]>(db.query).bind(db);
+
+export const checkTrans = async (req: Request, res: Response) => {
+  const balance = await queryAsync(`SELECT * FROM users`);
+};
 
 export const getBalance = (req: Request, res: Response) => {
   const email = res.locals.decript.email;
@@ -20,14 +25,13 @@ export const topup = (req: Request, res: Response) => {
   const email = res.locals.decript.email;
   const { top_up_amount } = req.body;
   const date = new Date();
-  const query = `SELECT id FROM USERS WHERE email ='${email}'`;
+  const query = `SELECT id FROM users WHERE email ='${email}'`;
 
   const invoiceNumber = `INV${date.getTime()}`;
   db.query(query, (err, result: any[]) => {
     const userId = result[0].id;
-    if (!result.length) {
-      return errorRequest(102, res, "user tidak ditemukan");
-    }
+    console.log(userId);
+
     const queryBalance = `UPDATE users SET balance=balance +${top_up_amount} WHERE id=${userId}`;
     const queryTrans = `insert into transactions (
       invoice_number,
@@ -40,21 +44,23 @@ export const topup = (req: Request, res: Response) => {
       if (err) {
         return res.status(500).json({ err });
       }
-      db.query(queryBalance, (err) => {
+      db.query(queryBalance, (err, result) => {
         if (err)
           return db.rollback(() => {
             throw err;
           });
+        console.log(result);
       });
-      db.query(queryTrans, (err) => {
+      db.query(queryTrans, (er, result) => {
         if (err)
           return db.rollback(() => {
             throw err;
           });
+        console.log(result);
       });
+      const queryResponse = `SELECT balance FROM users WHERE id=${userId}`;
+      return handleResponse(queryResponse, res, "Top Up Balance berhasil");
     });
-    const queryResponse = `SELECT balance FROM USERS WHERE id=${userId}`;
-    return handleResponse(queryResponse, res, "Top Up Balance berhasil");
   });
 };
 
@@ -65,10 +71,8 @@ export const transaction = (req: Request, res: Response) => {
   const invoiceNumber = `INV${date.getTime()}`;
 
   const query = `SELECT * FROM services WHERE service_code ='${service_code}'`;
-  const queryId = `SELECT id FROM USERS WHERE email ='${email}'`;
+  const queryId = `SELECT id FROM users WHERE email ='${email}'`;
   db.query(queryId, (err, result: any[]) => {
-    if (!result.length)
-      return res.status(500).json({ message: "user tidak ditemukan" });
     const userId = result[0].id;
 
     db.query(query, (err, result: any[]) => {
@@ -100,8 +104,8 @@ export const transaction = (req: Request, res: Response) => {
               throw err;
             });
         });
+        return handleResponsePayment(res, userId);
       });
-      return handleResponsePayment(res, userId);
     });
   });
 };

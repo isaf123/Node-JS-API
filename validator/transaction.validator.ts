@@ -9,6 +9,7 @@ export const topUpValidation = (
   next: NextFunction
 ) => {
   const { top_up_amount } = req.body;
+  console.log(req.body);
 
   const topupCheck = z.number().positive();
   const topupError = topupCheck.safeParse(top_up_amount).error;
