@@ -13,9 +13,7 @@ export const uploader = (dirName?: string, filePrefix?: string) => {
       callback: (error: Error | null, destination: string) => void
     ) => {
       const fileDestination = dirName ? defaultDir + dirName : defaultDir;
-      if (!fs.existsSync(fileDestination)) {
-        fs.mkdirSync(fileDestination, { recursive: true });
-      }
+
       callback(null, fileDestination);
     },
     filename: (
