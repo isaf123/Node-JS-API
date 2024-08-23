@@ -4,10 +4,10 @@
 ## API URL
 ### <a href="https://node-js-api-nutech.up.railway.app/" target="_blank">https://node-js-api-nutech.up.railway.app/</a>
 
-### Database
+## Link
 
 ```
-code blocks for commands
+https://node-js-api-nutech.up.railway.app/registration
 ```
 
 ```sql
