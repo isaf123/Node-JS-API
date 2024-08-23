@@ -34,7 +34,7 @@ router.put("/profile/update", verifyToken, profileUpdate);
 router.put(
   "/profile/image",
   verifyToken,
-  uploader("/profileImage", "profile").array("picture"),
+  uploader("/profileImage", "profile").array("profile"),
   validationImg,
   updateProfileImage
 );

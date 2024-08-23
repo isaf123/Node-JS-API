@@ -1,7 +1,6 @@
 import { Request } from "express";
 import multer from "multer";
 import { join } from "path"; // untuk merge file location
-import fs from "fs";
 
 export const uploader = (dirName?: string, filePrefix?: string) => {
   const defaultDir = join(__dirname, "../public"); //define directory utama

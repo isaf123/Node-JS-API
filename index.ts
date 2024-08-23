@@ -8,7 +8,7 @@ dotenv.config();
 const PORT = 9300;
 app.use(express.json());
 app.use(cors());
-app.use("/", express.static("public/profileImage"));
+app.use("/", express.static("dist/public/profileImage"));
 app.get("/", (req: Request, res: Response) => {
   res.send(`GET API SUCCESS!`);
 });
