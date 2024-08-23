@@ -2,18 +2,9 @@ import { Request, Response } from "express";
 import {
   handleResponse,
   handleResponsePayment,
-  responseInformation,
   responseTransactionHistory,
 } from "../middleware/handleResponse";
 import db from "../config/db";
-import { promisify } from "util";
-import { RowDataPacket } from "mysql2";
-
-const queryAsync = promisify<string, RowDataPacket[]>(db.query).bind(db);
-
-export const checkTrans = async (req: Request, res: Response) => {
-  const balance = await queryAsync(`SELECT * FROM users`);
-};
 
 export const getBalance = (req: Request, res: Response) => {
   const email = res.locals.decript.email;
@@ -40,27 +31,10 @@ export const topup = (req: Request, res: Response) => {
       total_amount,
       user_id) values('${invoiceNumber}','TOPUP','Top Up balance',${top_up_amount},${userId})`;
 
-    db.beginTransaction((err) => {
-      if (err) {
-        return res.status(500).json({ err });
-      }
-      db.query(queryBalance, (err, result) => {
-        if (err)
-          return db.rollback(() => {
-            throw err;
-          });
-        console.log(result);
-      });
-      db.query(queryTrans, (er, result) => {
-        if (err)
-          return db.rollback(() => {
-            throw err;
-          });
-        console.log(result);
-      });
-      const queryResponse = `SELECT balance FROM users WHERE id=${userId}`;
-      return handleResponse(queryResponse, res, "Top Up Balance berhasil");
-    });
+    db.query(queryBalance, (err, result) => {});
+    db.query(queryTrans, (er, result) => {});
+    const queryResponse = `SELECT balance FROM users WHERE id=${userId}`;
+    return handleResponse(queryResponse, res, "Top Up Balance berhasil");
   });
 };
 
