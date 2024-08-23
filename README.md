@@ -2,7 +2,12 @@
 
 [![copy](https://img.icons8.com/material-outlined/24/000000/copy.png) https://example.com](https://example.com)
 [Klik di sini untuk membuka situs](https://example.com)
-###Database
+### Database
+
+```
+code blocks for commands
+```
+
 ```sql
 CREATE TABLE `services` (
   `id` int NOT NULL AUTO_INCREMENT,
