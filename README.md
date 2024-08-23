@@ -4,11 +4,12 @@
 ## API URL
 ### <a href="https://node-js-api-nutech.up.railway.app/" target="_blank">https://node-js-api-nutech.up.railway.app/</a>
 
-## Link
+## NOTES : 
+### for upload use files type use 'profile' name
 
-```
-https://node-js-api-nutech.up.railway.app/registration
-```
+![image](https://github.com/user-attachments/assets/31b2993c-cef3-4b0b-a889-b9481e840e01)
+
+
 
 ```sql
 CREATE TABLE `services` (
