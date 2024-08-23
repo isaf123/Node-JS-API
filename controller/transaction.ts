@@ -67,6 +67,8 @@ export const transaction = (req: Request, res: Response) => {
   const query = `SELECT * FROM services WHERE service_code ='${service_code}'`;
   const queryId = `SELECT id FROM USERS WHERE email ='${email}'`;
   db.query(queryId, (err, result: any[]) => {
+    if (!result.length)
+      return res.status(500).json({ message: "user tidak ditemukan" });
     const userId = result[0].id;
 
     db.query(query, (err, result: any[]) => {
