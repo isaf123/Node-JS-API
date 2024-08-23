@@ -1,7 +1,10 @@
 # Node JS Programmer Take Home Test
 
-[![copy](https://img.icons8.com/material-outlined/24/000000/copy.png) https://example.com](https://example.com)
-[Klik di sini untuk membuka situs](https://example.com)
+
+### API URL
+[https://node-js-api-nutech.up.railway.app/](https://node-js-api-nutech.up.railway.app/)
+
+
 ### Database
 
 ```
