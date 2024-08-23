@@ -5,12 +5,12 @@
 ### <a href="https://node-js-api-nutech.up.railway.app/" target="_blank">https://node-js-api-nutech.up.railway.app/</a>
 
 ## NOTES : 
-### for upload use files type use 'profile' name
+### for upload image use files type use 'profile' name
 
 ![image](https://github.com/user-attachments/assets/31b2993c-cef3-4b0b-a889-b9481e840e01)
 
 
-
+## DATABASE : 
 ```sql
 CREATE TABLE `services` (
   `id` int NOT NULL AUTO_INCREMENT,
