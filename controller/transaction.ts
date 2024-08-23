@@ -25,6 +25,9 @@ export const topup = (req: Request, res: Response) => {
   const invoiceNumber = `INV${date.getTime()}`;
   db.query(query, (err, result: any[]) => {
     const userId = result[0].id;
+    if (!result.length) {
+      return errorRequest(102, res, "user tidak ditemukan");
+    }
     const queryBalance = `UPDATE users SET balance=balance +${top_up_amount} WHERE id=${userId}`;
     const queryTrans = `insert into transactions (
       invoice_number,
