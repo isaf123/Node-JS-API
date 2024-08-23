@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 
 const app: Application = express();
 dotenv.config();
-const PORT = 9300;
+const PORT = process.env.PORT;
 app.use(express.json());
 app.use(cors());
 app.use("/", express.static("public/profileImage"));

@@ -1,6 +1,7 @@
 import { Request } from "express";
 import multer from "multer";
 import { join } from "path"; // untuk merge file location
+import fs from "fs";
 
 export const uploader = (dirName?: string, filePrefix?: string) => {
   const defaultDir = join(__dirname, "../public"); //define directory utama
@@ -12,6 +13,9 @@ export const uploader = (dirName?: string, filePrefix?: string) => {
       callback: (error: Error | null, destination: string) => void
     ) => {
       const fileDestination = dirName ? defaultDir + dirName : defaultDir;
+      if (!fs.existsSync(fileDestination)) {
+        fs.mkdirSync(fileDestination, { recursive: true });
+      }
       callback(null, fileDestination);
     },
     filename: (
